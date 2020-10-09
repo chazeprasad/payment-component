@@ -3,7 +3,7 @@
 Payment Data Table Component.
 
 ### Live Demo Link 
-[Payment Data Table Demo](https://swirepay-ui-test.herokuapp.com)
+[https://swirepay-ui-test.herokuapp.com](https://swirepay-ui-test.herokuapp.com)
 
 ## Technologies
 It features the following technologies:
