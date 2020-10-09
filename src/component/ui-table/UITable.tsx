@@ -128,7 +128,7 @@ const UITable = (props) => {
         order: -1,
     });
 
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(4);
     const [limit, setLimit] = useState(10);
     const totalPages = Math.ceil(transactionData.length / limit);
     const handlePages = (updatePage: number) => setPage(updatePage);
