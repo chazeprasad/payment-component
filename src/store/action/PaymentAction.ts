@@ -2,8 +2,11 @@ import { ActionCreator, AppAction, ActionCreatorWithPayload, AppError } from './
 import { Payment } from '../domain/Payment';
 
 // --- Action Type--- //
-export const PaymentActionMap: Record<string, string> = {
+export const PaymentActionMap = {
     SET_TRANSACTION_LIST: '@payment/set-transaction',
+    REQUEST_TRANSACTION_LIST: '@payment/request-transaction',
+    REQUEST_TRANSACTION_LIST_SUCCESS: '@payment/request-transaction-success',
+    REQUEST_TRANSACTION_LIST_ERROR: '@payment/request-transaction-error',
     RESET: '@payment/reset',
 }
 

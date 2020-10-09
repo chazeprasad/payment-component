@@ -149,7 +149,7 @@ const UITable = (props) => {
             columnDefs: columnDefs,
             rowData: getPageRecords()
         })
-    }, [sort, page])
+    }, [sort, page, transactionList])
 
 
     const [ selectedRowIndex, setSelectedRowIndex ] = useState(1)
