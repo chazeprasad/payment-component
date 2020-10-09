@@ -1,10 +1,12 @@
-# swirepay-ui-tes
+# swirepay-ui-test
 
 Payment Data Table Component.
 
+### Live Demo Link 
+[Payment Data Table Demo](https://swirepay-ui-test.herokuapp.com)
+
 ## Technologies
 It features the following technologies:
-
 
 - [React 16](https://github.com/facebook/react)
 - [Redux 4](https://redux.js.org/) for State Management
