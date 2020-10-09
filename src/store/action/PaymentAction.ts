@@ -8,51 +8,58 @@ export const PaymentActionMap = {
     REQUEST_TRANSACTION_LIST_SUCCESS: '@payment/request-transaction-success',
     REQUEST_TRANSACTION_LIST_ERROR: '@payment/request-transaction-error',
     RESET: '@payment/reset',
-}
+};
 
 // --- Action --- //
 export interface SetTransactionListAction extends AppAction {
-    payload: Payment[]
-};
+    payload: Payment[];
+}
 
-export interface RequestTransactionListAction extends AppAction {};
+export type RequestTransactionListAction = AppAction;
 
 export interface RequestTransactionListSuccessAction extends AppAction {
     payload: Payment[];
-};
+}
 
 export interface RequestTransactionListErrorAction extends AppAction {
     payload: AppError;
-};
+}
 
 export interface ResetPaymentDataAction extends AppAction {
     payload: null;
-};
+}
 
 // --- Action Creator --- //
-export const setTransactionList: ActionCreatorWithPayload<SetTransactionListAction> = payload => ({
+export const setTransactionList: ActionCreatorWithPayload<SetTransactionListAction> = (payload) => ({
     type: PaymentActionMap.SET_TRANSACTION_LIST,
-    payload
+    payload,
 });
 
 export const requestTransactionList: ActionCreator<RequestTransactionListAction> = () => ({
     type: PaymentActionMap.REQUEST_TRANSACTION_LIST,
-    payload: null
-})
+    payload: null,
+});
 
-export const requestTransactionListSuccess: ActionCreatorWithPayload<RequestTransactionListSuccessAction> = payload => ({
+export const requestTransactionListSuccess: ActionCreatorWithPayload<RequestTransactionListSuccessAction> = (
+    payload,
+) => ({
     type: PaymentActionMap.REQUEST_TRANSACTION_LIST_SUCCESS,
-    payload
-})
+    payload,
+});
 
-export const requestTransactionListError: ActionCreatorWithPayload<RequestTransactionListErrorAction> = payload => ({
+export const requestTransactionListError: ActionCreatorWithPayload<RequestTransactionListErrorAction> = (payload) => ({
     type: PaymentActionMap.REQUEST_TRANSACTION_LIST_ERROR,
-    payload
-})
+    payload,
+});
 
 export const resetPaymentDataAction: ActionCreator<ResetPaymentDataAction> = () => ({
     type: PaymentActionMap.RESET,
-    payload: null
-})
+    payload: null,
+});
 
-export type PaymentAction = SetTransactionListAction | RequestTransactionListAction | RequestTransactionListSuccessAction | RequestTransactionListErrorAction | ResetPaymentDataAction;
+export type PaymentAction =
+    | SetTransactionListAction
+    | RequestTransactionListAction
+    | RequestTransactionListSuccessAction
+    | RequestTransactionListErrorAction
+    | ResetPaymentDataAction;

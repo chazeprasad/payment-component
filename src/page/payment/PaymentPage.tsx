@@ -19,11 +19,11 @@ const ContentWrapper = styled.div`
     min-width: 100vw;
     min-height: 100vh;
     padding: 24px;
-`;    
+`;
 
 const PaymentPage = () => {
     const transactionList = useTransactions();
-    
+
     return (
         <PageWrapper>
             <ContentWrapper>

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
-import {ReactComponent as RightChevron}  from '../../media/image/chevron-right.svg'
+import { ReactComponent as RightChevron } from '../../media/image/chevron-right.svg';
 
 const Wrapper = styled.div<Partial<Props>>`
     display: flex;
@@ -15,22 +15,19 @@ const Wrapper = styled.div<Partial<Props>>`
     margin-left: 5px;
     margin-right: 5px;
     cursor: pointer;
-  &:hover {
+    &:hover {
         color: #1791ff;
-    };
-  &:focus {
-      outline: 0;
-    };
-  
-  
+    }
+    &:focus {
+        outline: 0;
+    }
 
     ${(props: any) =>
-        props.disabled && css`
+        props.disabled &&
+        css`
             cursor: not-allowed;
             pointer-events: none;
         `};
-
-
 `;
 
 type Props = {
@@ -38,11 +35,17 @@ type Props = {
     onPress?: Function;
 };
 
-const NextButton: FC<Props> = ({ onPress, disabled}) => {
-  return (<Wrapper onClick={() => { if (!disabled) onPress!() }} disabled={disabled}>
-        <RightChevron stroke={disabled ? '#d9d9d9' : '#000000' }/>
-        
-    </Wrapper>)
-}
+const NextButton: FC<Props> = ({ onPress, disabled }) => {
+    return (
+        <Wrapper
+            onClick={() => {
+                if (!disabled) onPress!();
+            }}
+            disabled={disabled}
+        >
+            <RightChevron stroke={disabled ? '#d9d9d9' : '#000000'} />
+        </Wrapper>
+    );
+};
 
 export default NextButton;

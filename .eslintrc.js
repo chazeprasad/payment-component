@@ -1,23 +1,30 @@
 module.exports = {
     parser: "@typescript-eslint/parser",
     parserOptions: {
-        ecmaVersion: 2020,
-        sourceType: 'module',
+        ecmaFeatures: {
+            jsx: true,
+          },
+          ecmaVersion: 2018,
+          sourceType: 'module',
         project: './tsconfig.json'
     },
     extends: [
+        'airbnb-typescript',
+        'airbnb/hooks',
         'plugin:@typescript-eslint/recommended',
-        'airbnb-typescript/base',
+        'plugin:jest/recommended',
         'prettier',
-        "prettier/@typescript-eslint",
-        "plugin:prettier/recommended"
+        'prettier/react',
+        'prettier/@typescript-eslint',
+        'plugin:prettier/recommended'
     ],
 
     env: {
+        browser: true,
         es6: true,
-        node: true,
+        jest: true,
     },
-    plugins: ['prettier'],
+    plugins: ['prettier', 'react', '@typescript-eslint', 'jest'],
     globals: {
       Atomics: 'readonly',
       SharedArrayBuffer: 'readonly'
@@ -41,6 +48,12 @@ module.exports = {
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         'no-plusplus': 'off',
         'no-underscore-dangle': 'off',
+
+        "import/extensions": 'off',
+
+        "@typescript-eslint/ban-types": 'off',
+        "react/prop-types": 0,
+        "jsx-a11y/click-events-have-key-events": 0
 
     }
   };

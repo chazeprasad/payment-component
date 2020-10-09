@@ -14,40 +14,39 @@ const Wrapper = styled.div<Partial<Props>>`
     margin-left: 5px;
     margin-right: 5px;
     cursor: pointer;
-    
+
     &:hover {
-          color: #1791ff;
-      };
+        color: #1791ff;
+    }
     &:focus {
         outline: 0;
-      };
+    }
 
-      > div {
+    > div {
         font-family: 'ProximaNovaRegular';
         font-size: 14px;
-      }
+    }
 
-    
-  
     ${(props: any) =>
-        props.active && css`
+        props.active &&
+        css`
             border: solid 1px #1791ff;
             color: #1791ff;
         `};
-    
 `;
 
 type Props = {
-  page: number;
-  active: boolean;
-  onPress?: Function;
+    page: number;
+    active: boolean;
+    onPress?: Function;
 };
 
-const PageButton: FC<Props> = ({page, onPress, active}) => {
-    return (<Wrapper onClick={() => onPress!()} active={active}>
-        <div>{page}</div>
-        
-    </Wrapper>)
-}
+const PageButton: FC<Props> = ({ page, onPress, active }) => {
+    return (
+        <Wrapper onClick={() => onPress!()} active={active}>
+            <div>{page}</div>
+        </Wrapper>
+    );
+};
 
 export default PageButton;

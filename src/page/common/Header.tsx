@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Device } from '../../config/theme-config';
 
-
 const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -43,7 +42,6 @@ const Header = () => {
             <WrapperRight>
                 <Link to="/cart">Cart</Link>
             </WrapperRight>
-
         </Wrapper>
     );
 };

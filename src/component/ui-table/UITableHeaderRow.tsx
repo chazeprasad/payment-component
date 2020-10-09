@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import styled, { css, StyledComponent } from 'styled-components';
-import { UITableConfig } from './ui-table-config';
+import styled from 'styled-components';
 
-interface Props {
-}; 
+type Props = {
+    id?: string;
+};
 
 const Row = styled.tr<Props>`
     display: table-row;
@@ -14,11 +14,7 @@ const Row = styled.tr<Props>`
     background-color: #fafafa;
 `;
 
-
-
 export const UITableHeaderRow: FC<Props> = (props) => {
     const { children } = props;
-    return (
-        <Row>{children}</Row>
-    )
-}
+    return <Row>{children}</Row>;
+};

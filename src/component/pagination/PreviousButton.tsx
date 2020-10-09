@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
-import {ReactComponent as LeftChevron}  from '../../media/image/chevron-left.svg'
+import { ReactComponent as LeftChevron } from '../../media/image/chevron-left.svg';
 
 const Wrapper = styled.div<Partial<Props>>`
     display: flex;
@@ -16,32 +16,36 @@ const Wrapper = styled.div<Partial<Props>>`
     margin-right: 5px;
     cursor: pointer;
     &:hover {
-          color: #1791ff;
-      };
+        color: #1791ff;
+    }
     &:focus {
         outline: 0;
-      };
+    }
 
-      ${(props: any) =>
-        props.disabled && css`
+    ${(props: any) =>
+        props.disabled &&
+        css`
             cursor: not-allowed;
             pointer-events: none;
         `};
-  
 `;
 
 type Props = {
-  disabled: boolean;
-  onPress?: Function;
+    disabled: boolean;
+    onPress?: Function;
 };
 
-const PreviousButton: FC<Props> = ({ onPress, disabled}) => {
-  return (<Wrapper onClick={() => {
-    if(!disabled) onPress!()}
-  } disabled={disabled}>
-      <LeftChevron stroke={disabled ? '#d9d9d9' : '#000000'}/>
-        
-    </Wrapper>)
-}
+const PreviousButton: FC<Props> = ({ onPress, disabled }) => {
+    return (
+        <Wrapper
+            onClick={() => {
+                if (!disabled) onPress!();
+            }}
+            disabled={disabled}
+        >
+            <LeftChevron stroke={disabled ? '#d9d9d9' : '#000000'} />
+        </Wrapper>
+    );
+};
 
 export default PreviousButton;

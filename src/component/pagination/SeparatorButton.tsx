@@ -13,18 +13,20 @@ const Wrapper = styled.div`
         height: 4px;
         background-color: #bfbfbf;
         border-radius: 2px;
-        margin:1.5px
+        margin: 1.5px;
     }
 `;
 
 type Props = {};
 
 const SeparatorButton: FC<Props> = (props) => {
-    return (<Wrapper>
-        <div></div>
-        <div></div>
-        <div></div>
-    </Wrapper>)
-}
+    return (
+        <Wrapper>
+            <div />
+            <div />
+            <div />
+        </Wrapper>
+    );
+};
 
 export default SeparatorButton;

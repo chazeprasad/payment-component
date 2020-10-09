@@ -1,8 +1,8 @@
-import React, { FC } from "react"
-import styled from "styled-components"
-import { UITableConfig } from "../ui-table-config"
+import React, { FC } from 'react';
+import styled from 'styled-components';
 import * as moment from 'moment';
 import { Moment } from 'moment';
+import { UITableConfig } from '../ui-table-config';
 
 const Wrapper = styled.div`
     span {
@@ -19,24 +19,23 @@ const Wrapper = styled.div`
     }
 `;
 
-
 type Props = {
-    text: string
-}
+    text: string;
+};
 
 const dateFormatter = (dateTime) => {
-    const md: Moment = moment.utc(dateTime, "YYYY-MM-DD");
-    return md.format("MMM DD, YY");
-
-}
+    const md: Moment = moment.utc(dateTime, 'YYYY-MM-DD');
+    return md.format('MMM DD, YY');
+};
 
 export const UITableDateItem: FC<Props> = (props) => {
     const { text } = props;
 
     return (
-        <div >
-            <Wrapper><span>{dateFormatter(text)}</span></Wrapper>
+        <div>
+            <Wrapper>
+                <span>{dateFormatter(text)}</span>
+            </Wrapper>
         </div>
-        
-    )
-}
+    );
+};

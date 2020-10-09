@@ -1,6 +1,6 @@
-import React, { FC } from "react"
-import styled from "styled-components"
-import { UITableConfig } from "../ui-table-config"
+import React, { FC } from 'react';
+import styled from 'styled-components';
+import { UITableConfig } from '../ui-table-config';
 
 const Wrapper = styled.div`
     span {
@@ -17,17 +17,17 @@ const Wrapper = styled.div`
     }
 `;
 
-
 type Props = {
-    text: string
-}
+    text: string;
+};
 
 export const UITableNumberItem: FC<Props> = (props) => {
     const { text } = props;
     return (
-        <div >
-            <Wrapper><span>{text}</span></Wrapper>
+        <div>
+            <Wrapper>
+                <span>{text}</span>
+            </Wrapper>
         </div>
-        
-    )
-}
+    );
+};

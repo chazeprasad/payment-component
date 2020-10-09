@@ -10,7 +10,7 @@ export const TableFlag = {
     FAILED: 'failed',
     CANCELED: 'canceled',
     DISPUTED: 'disputed',
-}
+};
 
 export const TableField = {
     NUMBER: 'number',
@@ -18,16 +18,13 @@ export const TableField = {
     DATE: 'date',
     STATUS_FLAG: 'status-flag',
     TRANSACTION_METHOD: 'transaction-method',
-}
-
+};
 
 export const UITableConfig = {
-    
     TITLE_TEXT_COLOR: '#000000',
     TITLE_FONT_SIZE: 22,
     TITLE_FONT_FAMILY: FONT_SEMIBOLD,
     TITLE_FONT_WEIGHT: FONT_WEIGHT_600,
-
 
     HEADER_TEXT_COLOR: '#1A1A1A',
     HEADER_FONT_SIZE: 16,
@@ -45,5 +42,4 @@ export const UITableConfig = {
     RECORD_FONT_FAMILY: FONT_REGULAR,
     RECORD_FONT_WEIGHT: FONT_WEIGHT_400,
     RECORD_LINE_HEIGHT: 38,
-
-}
+};

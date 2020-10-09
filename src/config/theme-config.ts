@@ -5,7 +5,7 @@ export const ScreenSize = {
     tablet: '768px',
     laptop: '1024px',
     laptopL: '1440px',
-    desktop: '2560px'
+    desktop: '2560px',
 };
 
 export const Device = {
@@ -16,7 +16,7 @@ export const Device = {
     laptop: `(min-width: ${ScreenSize.laptop})`,
     laptopL: `(min-width: ${ScreenSize.laptopL})`,
     desktop: `(min-width: ${ScreenSize.desktop})`,
-    desktopL: `(min-width: ${ScreenSize.desktop})`
+    desktopL: `(min-width: ${ScreenSize.desktop})`,
 };
 
 export const ThemeColor = {
@@ -30,6 +30,5 @@ export const ThemeColor = {
     BORDER_COLOR: '#DAE1DD',
     GRAY_NURSE: '#E9EEEA',
     GRAY_TASMAN: '#DAE1DD',
-    ERROR_COLOR: '#d63031'
-
-}
+    ERROR_COLOR: '#d63031',
+};

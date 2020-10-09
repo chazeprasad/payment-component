@@ -7,36 +7,36 @@ import { TableField } from '../ui-table-config';
 import { UITableMethodItem } from './UITableMethodItem';
 
 type Props = {
-    data: any,
-    type: string
-}
+    data: any;
+    type: string;
+};
 export const UITableCellRenderer: FC<Props> = ({ data, type }) => {
-    let Renderer = <span></span>
+    let Renderer;
     switch (type) {
         case TableField.STRING:
-            Renderer = <UITableTextItem text={data} />
+            Renderer = <UITableTextItem text={data} />;
             break;
-        
+
         case TableField.NUMBER:
-            Renderer = <UITableNumberItem text={data} />
+            Renderer = <UITableNumberItem text={data} />;
             break;
-        
+
         case TableField.DATE:
-            Renderer = <UITableDateItem text={data} />
+            Renderer = <UITableDateItem text={data} />;
             break;
-        
+
         case TableField.STATUS_FLAG:
-            Renderer = <UITableStatusFlagItem text={data} />
+            Renderer = <UITableStatusFlagItem text={data} />;
             break;
-        
+
         case TableField.TRANSACTION_METHOD:
-            Renderer = <UITableMethodItem text={data} />
+            Renderer = <UITableMethodItem text={data} />;
             break;
-    
+
         default:
-            return Renderer;
+            Renderer = <span />;
             break;
     }
 
     return Renderer;
-}
+};

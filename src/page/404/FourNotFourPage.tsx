@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { ThemeColor } from '../../config/theme-config';
 
-
 const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -20,14 +19,10 @@ const Title = styled.div`
     min-height: 4px;
     max-height: 26px;
     overflow: hidden;
-    justify-content:center;
+    justify-content: center;
 `;
 
-type Props = {
-    data?: any;
-};
-  
-const FourNotFourPage = (props: Props) => {
+const FourNotFourPage = (props) => {
     return (
         <Wrapper>
             <Title>404</Title>

@@ -1,29 +1,26 @@
-import React, { FC } from "react"
-import styled, { css } from "styled-components"
-import { UITableConfig, TableFlag, FONT_SEMIBOLD, FONT_REGULAR } from '../ui-table-config';
-import Dispatch from 'react';
+import React, { FC } from 'react';
+import styled, { css } from 'styled-components';
+import { UITableConfig, TableFlag } from '../ui-table-config';
 
 const FlagColor = {
     [TableFlag.SUCCEEDED]: '#ececff',
     [TableFlag.FAILED]: '#ffdfb1',
     [TableFlag.DISPUTED]: '#ffdfb1',
     [TableFlag.CANCELED]: '#e2e2e2',
-}
+};
 
 const Wrapper = styled.div<Partial<Props>>`
     display: inline-flex;
     height: 21px;
     padding: 1px 20px;
-    border-radius:12px;
+    border-radius: 12px;
     flex-direction: row;
     align-items: center;
-    
-
 
     ${(props: any) =>
         css`
-            background-color: ${ FlagColor[props.text.toLowerCase()] };
-    `};
+            background-color: ${FlagColor[props.text.toLowerCase()]};
+        `};
 
     span {
         font-family: ${UITableConfig.RECORD_FONT_FAMILY};
@@ -40,14 +37,15 @@ const Wrapper = styled.div<Partial<Props>>`
     }
 `;
 
-
 type Props = {
-    text: string
-}
+    text: string;
+};
 
 export const UITableStatusFlagItem: FC<Props> = (props) => {
     const { text } = props;
     return (
-        <Wrapper text={text}><span>{text.toLowerCase()}</span></Wrapper>
-    )
-}
+        <Wrapper text={text}>
+            <span>{text.toLowerCase()}</span>
+        </Wrapper>
+    );
+};

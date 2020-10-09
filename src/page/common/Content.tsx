@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -8,15 +8,13 @@ const Wrapper = styled.div`
     align-items: center;
 `;
 type Props = {
+    id?: string;
+    children: ReactNode;
 };
 const Content: FC<Props> = (props) => {
     const { children } = props;
 
-    return (
-        <Wrapper >
-            {children}
-        </Wrapper>
-    );
+    return <Wrapper>{children}</Wrapper>;
 };
 
 export default Content;

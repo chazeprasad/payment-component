@@ -11,3 +11,5 @@ stats/
 coverage/
 
 @types
+
+src/serviceWorker.ts

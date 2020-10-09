@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
+import styled from 'styled-components';
 import Content from './Content';
 import Header from './Header';
-import styled from 'styled-components';
 
 const Wrapper = styled.div`
     display: flex;
@@ -11,19 +11,17 @@ const Wrapper = styled.div`
 `;
 
 type Props = {
-    layout?: any,
+    layout?: any;
+    children: ReactNode;
 };
 
 const Page: FC<Props> = (props) => {
-
     const { children } = props;
 
     return (
-        <Wrapper >
+        <Wrapper>
             <Header />
-            <Content>
-                {children}
-            </Content>
+            <Content>{children}</Content>
         </Wrapper>
     );
 };
