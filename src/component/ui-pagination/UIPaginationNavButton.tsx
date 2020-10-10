@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-import { ReactComponent as RightChevron } from '../../media/image/chevron-right.svg';
 
-const Wrapper = styled.div<Partial<Props>>`
+const Wrapper = styled.div<Partial<IProps>>`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -14,7 +13,21 @@ const Wrapper = styled.div<Partial<Props>>`
     background-color: #ffffff;
     margin-left: 5px;
     margin-right: 5px;
+    padding-top: 3px;
+
+    overflow: hidden;
     cursor: pointer;
+
+    @media (max-width: 425px) {
+        border: none;
+        margin-left: 2px;
+        margin-right: 2px;
+        width: 36px;
+        height: 36px;
+        padding-top: 3px;
+        border-radius: 100%;
+    }
+
     &:hover {
         color: #1791ff;
     }
@@ -30,22 +43,23 @@ const Wrapper = styled.div<Partial<Props>>`
         `};
 `;
 
-type Props = {
+interface IProps {
     disabled: boolean;
-    onPress?: Function;
-};
+    onPress: () => void;
+    children: ReactNode;
+}
 
-const NextButton: FC<Props> = ({ onPress, disabled }) => {
+const UIPaginationNavButton: FC<IProps> = ({ onPress, disabled, children }) => {
     return (
         <Wrapper
             onClick={() => {
-                if (!disabled) onPress!();
+                if (!disabled) onPress();
             }}
             disabled={disabled}
         >
-            <RightChevron stroke={disabled ? '#d9d9d9' : '#000000'} />
+            {children}
         </Wrapper>
     );
 };
 
-export default NextButton;
+export default UIPaginationNavButton;

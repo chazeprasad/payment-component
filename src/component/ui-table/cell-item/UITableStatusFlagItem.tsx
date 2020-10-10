@@ -9,7 +9,7 @@ const FlagColor = {
     [TableFlag.CANCELED]: '#e2e2e2',
 };
 
-const Wrapper = styled.div<Partial<Props>>`
+const Wrapper = styled.div<Partial<IProps>>`
     display: inline-flex;
     height: 21px;
     padding: 1px 20px;
@@ -37,11 +37,11 @@ const Wrapper = styled.div<Partial<Props>>`
     }
 `;
 
-type Props = {
+interface IProps {
     text: string;
-};
+}
 
-export const UITableStatusFlagItem: FC<Props> = (props) => {
+export const UITableStatusFlagItem: FC<IProps> = (props) => {
     const { text } = props;
     return (
         <Wrapper text={text}>

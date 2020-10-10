@@ -1,13 +1,7 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 
-interface Props {
-    active: boolean;
-
-    onPress?: Function;
-}
-
-const Row = styled.tr<Props>`
+const Row = styled.tr<IProps>`
     display: table-row;
     flex-direction: row;
     height: 38px;
@@ -30,7 +24,12 @@ const Row = styled.tr<Props>`
     }
 `;
 
-export const UITableRow: FC<Props> = (props) => {
+interface IProps {
+    active: boolean;
+    onPress?: () => void;
+}
+
+export const UITableRow: FC<IProps> = (props) => {
     const { children, onPress, active } = props;
     return (
         <Row

@@ -1,8 +1,10 @@
 import { useSelector } from 'react-redux';
-import { Payment } from '../store/domain/Payment';
+import { ITransaction } from '../store/domain/ITransaction';
 import { RootState } from '../store/reducer';
 
 export const useTransactions = () => {
-    const transactions: Payment[] | undefined = useSelector<RootState, Payment[]>((state) => state.paymentState.data);
+    const transactions: ITransaction[] | undefined = useSelector<RootState, ITransaction[]>(
+        (state) => state.paymentState.data,
+    );
     return transactions || [];
 };

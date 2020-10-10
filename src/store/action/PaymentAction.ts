@@ -1,5 +1,5 @@
 import { ActionCreator, AppAction, ActionCreatorWithPayload, AppError } from './index';
-import { Payment } from '../domain/Payment';
+import { ITransaction } from '../domain/ITransaction';
 
 // --- Action Type--- //
 export const PaymentActionMap = {
@@ -12,13 +12,13 @@ export const PaymentActionMap = {
 
 // --- Action --- //
 export interface SetTransactionListAction extends AppAction {
-    payload: Payment[];
+    payload: ITransaction[];
 }
 
 export type RequestTransactionListAction = AppAction;
 
 export interface RequestTransactionListSuccessAction extends AppAction {
-    payload: Payment[];
+    payload: ITransaction[];
 }
 
 export interface RequestTransactionListErrorAction extends AppAction {

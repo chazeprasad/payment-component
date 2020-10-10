@@ -13,6 +13,7 @@ export const TableFlag = {
 };
 
 export const TableField = {
+    CURRENCY: 'currency',
     NUMBER: 'number',
     STRING: 'string',
     DATE: 'date',

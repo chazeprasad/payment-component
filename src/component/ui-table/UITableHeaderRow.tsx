@@ -1,11 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-type Props = {
-    id?: string;
-};
-
-const Row = styled.tr<Props>`
+const Row = styled.tr<IProps>`
     display: table-row;
     flex-direction: row;
     height: 48px;
@@ -14,7 +10,9 @@ const Row = styled.tr<Props>`
     background-color: #fafafa;
 `;
 
-export const UITableHeaderRow: FC<Props> = (props) => {
+interface IProps {}
+
+export const UITableHeaderRow: FC<IProps> = (props) => {
     const { children } = props;
     return <Row>{children}</Row>;
 };

@@ -3,16 +3,7 @@ import styled, { css } from 'styled-components';
 import { UITableConfig } from './ui-table-config';
 import { UITableCellRenderer } from './cell-item/UITableCellRenderer';
 
-type Props = {
-    first: boolean;
-    last: boolean;
-    active: boolean;
-    adjacent: boolean;
-    cellType: string;
-    text: string;
-};
-
-const Cell = styled.td<Partial<Props>>`
+const Cell = styled.td<Partial<IProps>>`
     ${(props: any) =>
         css`
             border-top: solid 0.5px rgba(151, 151, 151, ${props.active ? 0.33 : 0});
@@ -38,7 +29,16 @@ const Cell = styled.td<Partial<Props>>`
     }
 `;
 
-export const UITableCell: FC<Props> = (props) => {
+interface IProps {
+    first: boolean;
+    last: boolean;
+    active: boolean;
+    adjacent: boolean;
+    cellType: string;
+    text: string;
+}
+
+export const UITableCell: FC<IProps> = (props) => {
     const { text, first, last, adjacent, active, cellType } = props;
     return (
         <Cell first={first} last={last} adjacent={adjacent} active={active}>

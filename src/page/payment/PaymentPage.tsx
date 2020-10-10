@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import UITable from '../../component/ui-table/UITable';
+import UIPayment from '../../component/ui-payment/UIPayment';
 import { ThemeColor } from '../../config/theme-config';
 import { useTransactions } from '../../hook/index';
 
@@ -17,7 +17,8 @@ const ContentWrapper = styled.div`
     display: flex;
     flex-direction: row;
     min-width: 100vw;
-    min-height: 100vh;
+    max-height: 100vh;
+    height: 100vh;
     padding: 24px;
 `;
 
@@ -27,7 +28,7 @@ const PaymentPage = () => {
     return (
         <PageWrapper>
             <ContentWrapper>
-                <UITable transactionList={transactionList} />
+                <UIPayment transactions={transactionList} limit={10} />
             </ContentWrapper>
         </PageWrapper>
     );

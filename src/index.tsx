@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
@@ -12,12 +10,6 @@ import * as serviceWorker from './serviceWorker';
 import App from './App';
 import { requestTransactionList } from './store/action/PaymentAction';
 import { SagaWatcher } from './store/saga/SagaWatcher';
-
-declare global {
-    interface Window {
-        store: any;
-    }
-}
 
 const middleware: Array<Middleware> = [];
 
@@ -33,7 +25,7 @@ const store = createStore(reducer, applyMiddleware(...middleware));
 sagaMiddleware.run(SagaWatcher);
 
 if (process.env.NODE_ENV !== 'production') {
-    window.store = store;
+    (window as any).store = store;
 }
 
 store.dispatch(requestTransactionList());

@@ -5,12 +5,14 @@ import { UITableDateItem } from './UITableDateItem';
 import { UITableStatusFlagItem } from './UITableStatusFlagItem';
 import { TableField } from '../ui-table-config';
 import { UITableMethodItem } from './UITableMethodItem';
+import { UITableCurrencyItem } from './UITableCurrencyItem';
 
-type Props = {
+interface IProps {
     data: any;
     type: string;
-};
-export const UITableCellRenderer: FC<Props> = ({ data, type }) => {
+}
+
+export const UITableCellRenderer: FC<IProps> = ({ data, type }) => {
     let Renderer;
     switch (type) {
         case TableField.STRING:
@@ -19,6 +21,10 @@ export const UITableCellRenderer: FC<Props> = ({ data, type }) => {
 
         case TableField.NUMBER:
             Renderer = <UITableNumberItem text={data} />;
+            break;
+
+        case TableField.CURRENCY:
+            Renderer = <UITableCurrencyItem text={data} />;
             break;
 
         case TableField.DATE:

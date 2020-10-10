@@ -1,12 +1,12 @@
 import { Reducer } from 'react';
 import { PaymentActionMap, PaymentAction } from '../action/PaymentAction';
-import { Payment } from '../domain/Payment';
+import { ITransaction } from '../domain/ITransaction';
 
 export type PaymentState = Readonly<{
     loading?: boolean;
     error?: any;
     success?: any;
-    data: Payment[];
+    data: ITransaction[];
 }>;
 
 const initialState: PaymentState = {

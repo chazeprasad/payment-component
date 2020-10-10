@@ -8,6 +8,11 @@ const Wrapper = styled.div`
     align-items: center;
     width: 30px;
     height: 30px;
+
+    @media (max-width: 425px) {
+        display: none;
+    }
+
     div {
         width: 4px;
         height: 4px;
@@ -17,9 +22,9 @@ const Wrapper = styled.div`
     }
 `;
 
-type Props = {};
+interface IProps {}
 
-const SeparatorButton: FC<Props> = (props) => {
+const UIPagination: FC<IProps> = (props) => {
     return (
         <Wrapper>
             <div />
@@ -29,4 +34,4 @@ const SeparatorButton: FC<Props> = (props) => {
     );
 };
 
-export default SeparatorButton;
+export default UIPagination;

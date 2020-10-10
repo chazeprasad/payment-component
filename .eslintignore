@@ -13,3 +13,4 @@ coverage/
 @types
 
 src/serviceWorker.ts
+src/stories/

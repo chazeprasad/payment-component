@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 
-const Wrapper = styled.div<Partial<Props>>`
+const Wrapper = styled.div<Partial<IProps>>`
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -14,6 +14,10 @@ const Wrapper = styled.div<Partial<Props>>`
     margin-left: 5px;
     margin-right: 5px;
     cursor: pointer;
+
+    @media (max-width: 425px) {
+        display: none;
+    }
 
     &:hover {
         color: #1791ff;
@@ -35,18 +39,18 @@ const Wrapper = styled.div<Partial<Props>>`
         `};
 `;
 
-type Props = {
+interface IProps {
     page: number;
     active: boolean;
-    onPress?: Function;
-};
+    onPress: () => void;
+}
 
-const PageButton: FC<Props> = ({ page, onPress, active }) => {
+const UIPaginationPageButton: FC<IProps> = ({ page, onPress, active }) => {
     return (
-        <Wrapper onClick={() => onPress!()} active={active}>
+        <Wrapper onClick={() => onPress()} active={active}>
             <div>{page}</div>
         </Wrapper>
     );
 };
 
-export default PageButton;
+export default UIPaginationPageButton;

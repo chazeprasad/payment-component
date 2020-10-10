@@ -21,12 +21,17 @@ interface IProps {
     text: string;
 }
 
-export const UITableTextItem: FC<IProps> = (props) => {
+export const UITableCurrencyItem: FC<IProps> = (props) => {
     const { text } = props;
+
+    function formatCurrency(num) {
+        return `$ ${num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}`;
+    }
+
     return (
         <div>
             <Wrapper>
-                <span>{text}</span>
+                <span>{formatCurrency(text)}</span>
             </Wrapper>
         </div>
     );

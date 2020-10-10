@@ -1,20 +1,8 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { UITableConfig } from './ui-table-config';
 
-type Props = {
-    first: boolean;
-    last: boolean;
-    text?: string;
-    field: string;
-    sortActive: boolean;
-    sortOrder: number;
-    onSortButtonPress: Function;
-};
-
-const Cell = styled.td<Partial<Props>>`
+const Cell = styled.td<Partial<IProps>>`
     border-bottom: solid 0.5px rgba(151, 151, 151, 0.33);
 
     > div {
@@ -32,7 +20,7 @@ const Cell = styled.td<Partial<Props>>`
                 margin-right: ${props.last ? 32 : 0}px;
             `}
 
-        h4 {
+        > div {
             font-family: ${UITableConfig.HEADER_FONT_FAMILY};
             font-size: ${UITableConfig.HEADER_FONT_SIZE}px;
             font-weight: ${UITableConfig.HEADER_FONT_WEIGHT};
@@ -56,7 +44,7 @@ const Cell = styled.td<Partial<Props>>`
     }
 `;
 
-const SortArrowUp = styled.div<Partial<Props>>`
+const SortArrowUp = styled.div<Partial<IProps>>`
     width: 0;
     height: 0;
     border-left: 4px solid transparent;
@@ -71,7 +59,7 @@ const SortArrowUp = styled.div<Partial<Props>>`
         `}
 `;
 
-const SortArrowDown = styled.div<Partial<Props>>`
+const SortArrowDown = styled.div<Partial<IProps>>`
     margin-top: 3px;
     width: 0;
     height: 0;
@@ -87,12 +75,23 @@ const SortArrowDown = styled.div<Partial<Props>>`
         `}
 `;
 
-export const UITableHeaderCell: FC<Props> = (props) => {
+interface IProps {
+    first: boolean;
+    last: boolean;
+    text?: string;
+    field: string;
+    sortActive: boolean;
+    sortOrder: number;
+    onSortButtonPress: (string, number) => void;
+}
+
+export const UITableHeaderCell: FC<IProps> = (props) => {
     const { text, first, last, field, sortActive, sortOrder, onSortButtonPress } = props;
     return (
         <Cell first={first} last={last}>
             <div>
-                <h4
+                <div
+                    aria-hidden="true"
                     onClick={() => {
                         if (sortActive) {
                             onSortButtonPress(field, sortOrder * -1);
@@ -102,7 +101,7 @@ export const UITableHeaderCell: FC<Props> = (props) => {
                     }}
                 >
                     {text}
-                </h4>
+                </div>
                 <span>
                     <SortArrowUp
                         onClick={() => {

@@ -17,11 +17,11 @@ const Wrapper = styled.div`
     }
 `;
 
-type Props = {
+interface IProps {
     text: string;
-};
+}
 
-export const UITableMethodItem: FC<Props> = (props) => {
+export const UITableMethodItem: FC<IProps> = (props) => {
     const { text } = props;
     return (
         <div>

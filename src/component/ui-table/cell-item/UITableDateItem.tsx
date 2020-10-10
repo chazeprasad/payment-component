@@ -19,17 +19,17 @@ const Wrapper = styled.div`
     }
 `;
 
-type Props = {
+interface IProps {
     text: string;
-};
+}
 
-const dateFormatter = (dateTime) => {
-    const md: Moment = moment.utc(dateTime, 'YYYY-MM-DD');
-    return md.format('MMM DD, YY');
-};
-
-export const UITableDateItem: FC<Props> = (props) => {
+export const UITableDateItem: FC<IProps> = (props) => {
     const { text } = props;
+
+    const dateFormatter = (dateTime) => {
+        const md: Moment = moment.utc(dateTime, 'YYYY-MM-DD');
+        return md.format('MMM DD, YY');
+    };
 
     return (
         <div>
