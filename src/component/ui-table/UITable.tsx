@@ -67,8 +67,8 @@ const UITable: FC<IProps> = ({
 
     useEffect(() => {
         setSort({
-            property: sortBy,
-            order: sortOrder,
+            property: sortBy || '',
+            order: sortOrder || -1,
         });
         if (data) setRecords([...data]);
     }, [config, data, setSort, sortBy, sortOrder]);
