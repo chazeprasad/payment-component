@@ -9,14 +9,15 @@ module.exports = {
         project: './tsconfig.json'
     },
     extends: [
-        'airbnb-typescript',
+        'airbnb-typescript/base',
         'airbnb/hooks',
         'plugin:@typescript-eslint/recommended',
         'plugin:jest/recommended',
         'prettier',
         'prettier/react',
         'prettier/@typescript-eslint',
-        'plugin:prettier/recommended'
+        'plugin:prettier/recommended',
+        'plugin:jsx-a11y/recommended'
     ],
 
     env: {
@@ -24,7 +25,7 @@ module.exports = {
         es6: true,
         jest: true,
     },
-    plugins: ['prettier', 'react', '@typescript-eslint', 'jest'],
+    plugins: ['prettier', 'react', '@typescript-eslint', 'jest', 'jsx-a11y'],
     globals: {
       Atomics: 'readonly',
       SharedArrayBuffer: 'readonly'
@@ -33,7 +34,7 @@ module.exports = {
     rules: {
         'prettier/prettier': 'error',
         'class-methods-use-this': 'off',
-        'no-param-reassign': 'off',
+        'no-param-reassign': 'error',
         'import/prefer-default-export': 'off',
         camelcase: 'off',
         '@typescript-eslint/no-unused-vars': 'off',
@@ -46,14 +47,15 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
+        '@typescript-eslint/no-empty-interface': 0,
         'no-plusplus': 'off',
         'no-underscore-dangle': 'off',
-
         "import/extensions": 'off',
+        "no-mixed-operators": 0,
 
-        "@typescript-eslint/ban-types": 'off',
-        "react/prop-types": 0,
-        "jsx-a11y/click-events-have-key-events": 0
+        // "@typescript-eslint/ban-types": 'off',
+        // "react/prop-types": 0,
+        // "jsx-a11y/click-events-have-key-events": 0
 
     }
   };

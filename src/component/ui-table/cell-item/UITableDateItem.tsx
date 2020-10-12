@@ -2,14 +2,14 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import * as moment from 'moment';
 import { Moment } from 'moment';
-import { UITableConfig } from '../ui-table-config';
+import { FONT_REGULAR, UITableConfig, FONT_WEIGHT_400 } from '../ui-table-config';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<IProps>`
     span {
-        font-family: ${UITableConfig.RECORD_FONT_FAMILY};
-        font-size: ${UITableConfig.RECORD_FONT_SIZE}px;
-        font-weight: ${UITableConfig.RECORD_FONT_WEIGHT};
-        color: #000000;
+        font-family: ${(props) => props.fontFamily};
+        font-size: ${(props) => props.fontSize}px;
+        font-weight: ${(props) => props.fontWeight};
+        color: ${(props) => props.color};
         margin: 0;
         padding: 0;
         font-stretch: normal;
@@ -19,23 +19,39 @@ const Wrapper = styled.div`
     }
 `;
 
-type Props = {
+interface IProps {
     text: string;
-};
+    fontFamily?: string;
+    fontSize?: number;
+    fontWeight?: number;
+    color?: string;
+}
 
-const dateFormatter = (dateTime) => {
-    const md: Moment = moment.utc(dateTime, 'YYYY-MM-DD');
-    return md.format('MMM DD, YY');
-};
-
-export const UITableDateItem: FC<Props> = (props) => {
+export const UITableDateItem: FC<IProps> = (props) => {
     const { text } = props;
+
+    const dateFormatter = (dateTime) => {
+        const md: Moment = moment.utc(dateTime, 'YYYY-MM-DD');
+        return md.format('MMM DD, YY');
+    };
 
     return (
         <div>
-            <Wrapper>
+            <Wrapper {...props}>
                 <span>{dateFormatter(text)}</span>
             </Wrapper>
         </div>
     );
 };
+
+const defaultProps: IProps = {
+    text: '2020-07-17T13:23:46.341992',
+    fontFamily: FONT_REGULAR,
+    fontSize: UITableConfig.RECORD_FONT_SIZE,
+    fontWeight: FONT_WEIGHT_400,
+    color: '#00000',
+};
+
+UITableDateItem.defaultProps = defaultProps;
+
+export default UITableDateItem;

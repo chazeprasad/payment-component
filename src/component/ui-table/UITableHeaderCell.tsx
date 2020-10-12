@@ -1,20 +1,8 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
-import { UITableConfig } from './ui-table-config';
+import { UITableConfig, FONT_WEIGHT_400, TableField } from './ui-table-config';
 
-type Props = {
-    first: boolean;
-    last: boolean;
-    text?: string;
-    field: string;
-    sortActive: boolean;
-    sortOrder: number;
-    onSortButtonPress: Function;
-};
-
-const Cell = styled.td<Partial<Props>>`
+const Cell = styled.td<Partial<IProps>>`
     border-bottom: solid 0.5px rgba(151, 151, 151, 0.33);
 
     > div {
@@ -22,7 +10,7 @@ const Cell = styled.td<Partial<Props>>`
         flex-direction: row;
         padding-left: 26px;
         padding-right: 16px;
-        height: 24px;
+        height: ${(props) => props.height};
         justify-content: flex-start;
         align-items: center;
 
@@ -32,11 +20,11 @@ const Cell = styled.td<Partial<Props>>`
                 margin-right: ${props.last ? 32 : 0}px;
             `}
 
-        h4 {
-            font-family: ${UITableConfig.HEADER_FONT_FAMILY};
-            font-size: ${UITableConfig.HEADER_FONT_SIZE}px;
-            font-weight: ${UITableConfig.HEADER_FONT_WEIGHT};
-            color: ${UITableConfig.HEADER_TEXT_COLOR};
+        > div {
+            font-family: ${(props) => props.fontFamily};
+            font-size: ${(props) => props.fontSize}px;
+            font-weight: ${(props) => props.fontWeight};
+            color: ${(props) => props.color};
             margin: 0;
             padding: 0;
             font-stretch: normal;
@@ -56,70 +44,133 @@ const Cell = styled.td<Partial<Props>>`
     }
 `;
 
-const SortArrowUp = styled.div<Partial<Props>>`
+const SortArrowUp = styled.div<Partial<IProps>>`
     width: 0;
     height: 0;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-bottom: 5px solid #bfbfbf;
+    border-bottom: 5px solid ${(props) => props.sortIconColor};
     cursor: pointer;
 
     ${(props: any) =>
         props.sortActive &&
         css`
-            border-bottom: 5px solid ${props.sortOrder === -1 ? '#1791ff' : '#bfbfbf'};
+            border-bottom: 5px solid ${props.sortOrder === -1 ? props.sortIconSelectedColor : props.sortIconColor};
         `}
 `;
 
-const SortArrowDown = styled.div<Partial<Props>>`
+const SortArrowDown = styled.div<Partial<IProps>>`
     margin-top: 3px;
     width: 0;
     height: 0;
     border-left: 4px solid transparent;
     border-right: 4px solid transparent;
-    border-top: 5px solid #bfbfbf;
+    border-top: 5px solid ${(props) => props.sortIconColor};
     cursor: pointer;
 
     ${(props: any) =>
         props.sortActive &&
         css`
-            border-top: 5px solid ${props.sortOrder === 1 ? '#1791ff' : '#bfbfbf'};
+            border-top: 5px solid ${props.sortOrder === 1 ? props.sortIconSelectedColor : props.sortIconColor};
         `}
 `;
 
-export const UITableHeaderCell: FC<Props> = (props) => {
-    const { text, first, last, field, sortActive, sortOrder, onSortButtonPress } = props;
+interface IProps {
+    first: boolean;
+    last: boolean;
+    text?: string;
+    field: string;
+    sortActive: boolean;
+    sortOrder: number;
+    onSortButtonPress?: (string, number) => void;
+    fontFamily?: string;
+    fontSize?: number;
+    fontWeight?: number;
+    color?: string;
+    height?: number;
+    sortIconColor?: string;
+    sortIconSelectedColor?: string;
+}
+
+export const UITableHeaderCell: FC<IProps> = (props) => {
+    const {
+        text,
+        first,
+        last,
+        field,
+        sortActive,
+        sortOrder,
+        onSortButtonPress,
+        color,
+        height,
+        fontWeight,
+        fontSize,
+        fontFamily,
+        sortIconColor,
+        sortIconSelectedColor,
+    } = props;
     return (
-        <Cell first={first} last={last}>
+        <Cell
+            first={first}
+            last={last}
+            color={color}
+            height={height}
+            fontWeight={fontWeight}
+            fontSize={fontSize}
+            fontFamily={fontFamily}
+        >
             <div>
-                <h4
+                <div
+                    aria-hidden="true"
                     onClick={() => {
                         if (sortActive) {
-                            onSortButtonPress(field, sortOrder * -1);
-                        } else {
-                            onSortButtonPress(field, -1);
-                        }
+                            if (onSortButtonPress) onSortButtonPress(field, sortOrder * -1);
+                        } else if (onSortButtonPress) onSortButtonPress(field, -1);
                     }}
                 >
                     {text}
-                </h4>
+                </div>
                 <span>
                     <SortArrowUp
                         onClick={() => {
-                            onSortButtonPress(field, -1);
+                            if (onSortButtonPress) onSortButtonPress(field, -1);
                         }}
                         sortActive={sortActive}
                         sortOrder={sortOrder}
+                        sortIconColor={sortIconColor}
+                        sortIconSelectedColor={sortIconSelectedColor}
                     />
                     <SortArrowDown
                         onClick={() => {
-                            onSortButtonPress(field, 1);
+                            if (onSortButtonPress) onSortButtonPress(field, 1);
                         }}
                         sortActive={sortActive}
                         sortOrder={sortOrder}
+                        sortIconColor={sortIconColor}
+                        sortIconSelectedColor={sortIconSelectedColor}
                     />
                 </span>
             </div>
         </Cell>
     );
 };
+
+const defaultProps: IProps = {
+    first: false,
+    last: false,
+    text: '',
+    field: TableField.STRING,
+    sortActive: false,
+    sortOrder: -1,
+    height: 24,
+    fontFamily: UITableConfig.HEADER_FONT_FAMILY,
+    fontSize: UITableConfig.HEADER_FONT_SIZE,
+    fontWeight: FONT_WEIGHT_400,
+    color: UITableConfig.HEADER_TEXT_COLOR,
+    sortIconColor: '#BFBFBF',
+    sortIconSelectedColor: '#1791ff',
+};
+
+UITableHeaderCell.defaultProps = defaultProps;
+
+export default UITableHeaderCell;

@@ -21,6 +21,10 @@
     "noImplicitAny": false,
     "downlevelIteration": true,
     "strictFunctionTypes": false,
+    "typeRoots": [
+      "@types",
+      "node_modules/@types"
+    ],
   },
   "include": [
     "src"

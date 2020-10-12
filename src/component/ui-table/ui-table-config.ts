@@ -13,6 +13,7 @@ export const TableFlag = {
 };
 
 export const TableField = {
+    CURRENCY: 'currency',
     NUMBER: 'number',
     STRING: 'string',
     DATE: 'date',
@@ -43,3 +44,9 @@ export const UITableConfig = {
     RECORD_FONT_WEIGHT: FONT_WEIGHT_400,
     RECORD_LINE_HEIGHT: 38,
 };
+
+export interface ITableConfig {
+    headerName: string;
+    field: string;
+    type: string;
+}

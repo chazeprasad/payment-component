@@ -1,20 +1,35 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-type Props = {
-    id?: string;
-};
-
-const Row = styled.tr<Props>`
+const Row = styled.tr<IProps>`
     display: table-row;
     flex-direction: row;
-    height: 48px;
+    height: ${(props) => props.height}px;
     justify-content: flex-start;
     align-items: center;
-    background-color: #fafafa;
+    background-color: ${(props) => props.fillColor};
 `;
 
-export const UITableHeaderRow: FC<Props> = (props) => {
-    const { children } = props;
-    return <Row>{children}</Row>;
+interface IProps {
+    children?: ReactNode;
+    height?: number;
+    fillColor?: string;
+}
+
+const UITableHeaderRow: FC<IProps> = (props) => {
+    const { children, height, fillColor } = props;
+    return (
+        <Row height={height} fillColor={fillColor}>
+            {children}
+        </Row>
+    );
 };
+
+const defaultProps: IProps = {
+    height: 48,
+    fillColor: '#fafafa',
+};
+
+UITableHeaderRow.defaultProps = defaultProps;
+
+export default UITableHeaderRow;
