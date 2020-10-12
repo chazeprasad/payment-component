@@ -31,9 +31,11 @@ interface IProps {
 }
 
 const UITableRow: FC<IProps> = (props) => {
-    const { children, onPress } = props;
+    const { children, onPress, active, height } = props;
     return (
         <Row
+            active={active}
+            height={height}
             onClick={() => {
                 if (onPress) onPress();
             }}
@@ -44,7 +46,7 @@ const UITableRow: FC<IProps> = (props) => {
 };
 
 const defaultProps: IProps = {
-    active: false,
+    active: true,
     height: 38,
     onPress: () => {},
 };
