@@ -4,6 +4,11 @@ import Container from '../src/component/core/Container'
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
+  options: {
+    storySort: {
+      order: ['Landing', 'Payment', 'Table', 'Pagination'],
+    },
+  },
 }
 
 addDecorator(story => <Container>{story()}</Container>)
