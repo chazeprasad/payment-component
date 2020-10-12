@@ -166,6 +166,8 @@ const UIPayment: FC<IProps> = ({
                         <UITable
                             config={config}
                             data={tableData}
+                            sortBy={sort.property}
+                            sortOrder={sort.order}
                             rowHeight={rowHeight}
                             onSortChange={onSortChange}
                             headerHeight={headerHeight}
