@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { UITableConfig } from '../ui-table-config';
+import { FONT_REGULAR, UITableConfig, FONT_WEIGHT_400 } from '../ui-table-config';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<IProps>`
     span {
-        font-family: ${UITableConfig.RECORD_FONT_FAMILY};
-        font-size: ${UITableConfig.RECORD_FONT_SIZE}px;
-        font-weight: ${UITableConfig.RECORD_FONT_WEIGHT};
+        font-family: ${(props) => props.fontFamily};
+        font-size: ${(props) => props.fontSize}px;
+        font-weight: ${(props) => props.fontWeight};
+        color: ${(props) => props.color};
         color: #434343;
         margin: 0;
         padding: 0;
@@ -19,9 +20,13 @@ const Wrapper = styled.div`
 
 interface IProps {
     text: string;
+    fontFamily?: string;
+    fontSize?: number;
+    fontWeight?: number;
+    color?: string;
 }
 
-export const UITableCurrencyItem: FC<IProps> = (props) => {
+const UITableCurrencyItem: FC<IProps> = (props) => {
     const { text } = props;
 
     function formatCurrency(num) {
@@ -30,9 +35,21 @@ export const UITableCurrencyItem: FC<IProps> = (props) => {
 
     return (
         <div>
-            <Wrapper>
+            <Wrapper {...props}>
                 <span>{formatCurrency(text)}</span>
             </Wrapper>
         </div>
     );
 };
+
+const defaultProps: IProps = {
+    text: '100000000.00',
+    fontFamily: FONT_REGULAR,
+    fontSize: 14,
+    fontWeight: FONT_WEIGHT_400,
+    color: UITableConfig.RECORD_TEXT_COLOR,
+};
+
+UITableCurrencyItem.defaultProps = defaultProps;
+
+export default UITableCurrencyItem;

@@ -8,17 +8,19 @@ const Wrapper = styled.div<Partial<IProps>>`
     align-items: center;
     width: 30px;
     height: 30px;
-    border-radius: 2px;
-    border: solid 1px #d9d9d9;
-    background-color: #ffffff;
+    max-height: 30px;
+    border-radius: ${(props) => props.borderRadius}px;
+    border: solid 1px ${(props) => props.borderColor};
+    background-color: ${(props) => props.fillColor};
     margin-left: 5px;
     margin-right: 5px;
-    padding-top: 3px;
+    padding-top: 2px;
+    box-sizing: border-box;
 
     overflow: hidden;
     cursor: pointer;
 
-    @media (max-width: 425px) {
+    @media (max-width: 600px) {
         border: none;
         margin-left: 2px;
         margin-right: 2px;
@@ -44,22 +46,59 @@ const Wrapper = styled.div<Partial<IProps>>`
 `;
 
 interface IProps {
-    disabled: boolean;
-    onPress: () => void;
-    children: ReactNode;
+    disabled?: boolean;
+    fillColor?: string;
+    iconColorEnabled?: string;
+    iconColorDisabled?: string;
+    borderColor?: string;
+    borderRadius?: number;
+    onPress?: () => void;
+    children?: ReactNode;
 }
 
-const UIPaginationNavButton: FC<IProps> = ({ onPress, disabled, children }) => {
+const UIPaginationNavButton: FC<IProps> = ({
+    onPress,
+    disabled,
+    children,
+    fillColor,
+    borderColor,
+    borderRadius,
+    iconColorEnabled,
+    iconColorDisabled,
+}) => {
+    const childrenWithProps = React.Children.map(children, (child) => {
+        const props = {
+            stroke: disabled ? iconColorDisabled : iconColorEnabled,
+        };
+        if (React.isValidElement(child)) {
+            return React.cloneElement(child, props);
+        }
+        return child;
+    });
     return (
         <Wrapper
             onClick={() => {
-                if (!disabled) onPress();
+                if (!disabled && onPress) onPress();
             }}
             disabled={disabled}
+            fillColor={fillColor}
+            borderColor={borderColor}
+            borderRadius={borderRadius}
         >
-            {children}
+            {childrenWithProps}
         </Wrapper>
     );
 };
+
+const defaultProps: IProps = {
+    disabled: false,
+    fillColor: '#ffffff',
+    borderColor: '#d9d9d9',
+    borderRadius: 2,
+    iconColorEnabled: '#000000',
+    iconColorDisabled: '#d9d9d9',
+};
+
+UIPaginationNavButton.defaultProps = defaultProps;
 
 export default UIPaginationNavButton;

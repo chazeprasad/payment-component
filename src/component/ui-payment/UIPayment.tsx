@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, FC } from 'react';
 import styled from 'styled-components';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { ITransaction } from '../../store/domain/ITransaction';
-import { UITableConfig, TableField } from '../ui-table/ui-table-config';
+import { UITableConfig, TableField, ITableConfig, FONT_REGULAR, FONT_WEIGHT_600 } from '../ui-table/ui-table-config';
 import UITable from '../ui-table/UITable';
 import { UIPagination } from '../ui-pagination/UIPagination';
 import { ArrayUtil } from '../../util/array-util';
@@ -23,7 +23,7 @@ const Wrapper = styled.div`
     overflow: hidden;
     position: relative;
 
-    @media (max-width: 425px) {
+    @media (max-width: 600px) {
         justify-content: space-between;
     }
 `;
@@ -76,7 +76,7 @@ const PaginationWrapper = styled.div`
 // const headerHeight = 48;
 // const recordHeight = 38;
 
-const config = [
+const config: Array<ITableConfig> = [
     { headerName: 'Amount', field: 'amount', type: TableField.CURRENCY },
     { headerName: 'Status', field: 'status', type: TableField.STATUS_FLAG },
     { headerName: 'Method', field: 'method', type: TableField.TRANSACTION_METHOD },
@@ -86,10 +86,30 @@ const config = [
 interface IProps {
     transactions: Array<ITransaction>;
     limit: number;
+    headerHeight?: number;
+    rowHeight?: number;
+    headerFillColor?: string;
+    headerTextColor?: string;
+    headerFontFamily?: string;
+    headerFontSize?: number;
+    headerFontWeight?: number;
+    sortIconColor?: string;
+    sortIconSelectedColor?: string;
 }
 
-const UIPayment: FC<IProps> = ({ transactions, limit }) => {
-    const [totalPages, setTotalPages] = useState(1);
+const UIPayment: FC<IProps> = ({
+    transactions,
+    limit,
+    rowHeight,
+    headerHeight,
+    headerFillColor,
+    headerTextColor,
+    headerFontFamily,
+    headerFontSize,
+    headerFontWeight,
+    sortIconColor,
+    sortIconSelectedColor,
+}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [tableData, setTableData] = useState<Array<ITransaction>>([]);
     const [sort, setSort] = useState({
@@ -123,7 +143,6 @@ const UIPayment: FC<IProps> = ({ transactions, limit }) => {
 
     useEffect(() => {
         if (transactions && transactions.length) {
-            setTotalPages(Math.ceil(transactions.length / limit));
             const list = getRecords([...transactions], currentPage, limit, sort.property, sort.order) as Array<
                 ITransaction
             >;
@@ -143,22 +162,51 @@ const UIPayment: FC<IProps> = ({ transactions, limit }) => {
                     <h4>All Transactions</h4>
                 </TitleWrapper>
                 <TableWrapper>
-                    <Scrollbars autoHide>
-                        <UITable config={config} data={tableData} onSortChange={onSortChange} sort={sort} />
+                    <Scrollbars autoHide style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+                        <UITable
+                            config={config}
+                            data={tableData}
+                            rowHeight={rowHeight}
+                            onSortChange={onSortChange}
+                            headerHeight={headerHeight}
+                            headerFillColor={headerFillColor}
+                            headerTextColor={headerTextColor}
+                            headerFontFamily={headerFontFamily}
+                            headerFontSize={headerFontSize}
+                            headerFontWeight={headerFontWeight}
+                            sortIconColor={sortIconColor}
+                            sortIconSelectedColor={sortIconSelectedColor}
+                        />
                     </Scrollbars>
                 </TableWrapper>
             </TopSectionWrapper>
 
             <PaginationWrapper>
                 <UIPagination
-                    page={currentPage}
+                    currentPage={currentPage}
                     numItems={transactions.length}
-                    totalPages={totalPages}
-                    handlePagination={onPaginationChange}
+                    pageLimit={limit || 10}
+                    onPaginationChange={onPaginationChange}
                 />
             </PaginationWrapper>
         </Wrapper>
     );
 };
+
+const defaultProps: IProps = {
+    transactions: [],
+    limit: 10,
+    headerHeight: 48,
+    rowHeight: 38,
+    headerFillColor: '#fafafa',
+    headerTextColor: '#1A1A1A',
+    headerFontFamily: FONT_REGULAR,
+    headerFontSize: 14,
+    headerFontWeight: FONT_WEIGHT_600,
+    sortIconColor: UITableConfig.HEADER_SORT_ICON_NORMAL_COLOR,
+    sortIconSelectedColor: UITableConfig.HEADER_SORT_ICON_SELECTED_COLOR,
+};
+
+UIPayment.defaultProps = defaultProps;
 
 export default React.memo(UIPayment);

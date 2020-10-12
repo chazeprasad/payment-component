@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
-import { UITableConfig, TableFlag } from '../ui-table-config';
+import { UITableConfig, TableFlag, FONT_WEIGHT_600, FONT_SEMIBOLD } from '../ui-table-config';
 
 const FlagColor = {
     [TableFlag.SUCCEEDED]: '#ececff',
@@ -23,10 +23,10 @@ const Wrapper = styled.div<Partial<IProps>>`
         `};
 
     span {
-        font-family: ${UITableConfig.RECORD_FONT_FAMILY};
-        font-size: ${UITableConfig.RECORD_FONT_SIZE}px;
-        font-weight: 600;
-        color: ${UITableConfig.RECORD_TEXT_COLOR};
+        font-family: ${(props) => props.fontFamily};
+        font-size: ${(props) => props.fontSize}px;
+        font-weight: ${(props) => props.fontWeight};
+        color: ${(props) => props.color};
         margin: 0;
         padding: 0;
         font-stretch: normal;
@@ -39,13 +39,29 @@ const Wrapper = styled.div<Partial<IProps>>`
 
 interface IProps {
     text: string;
+    fontFamily?: string;
+    fontSize?: number;
+    fontWeight?: number;
+    color?: string;
 }
 
-export const UITableStatusFlagItem: FC<IProps> = (props) => {
+const UITableStatusFlagItem: FC<IProps> = (props) => {
     const { text } = props;
     return (
-        <Wrapper text={text}>
+        <Wrapper {...props}>
             <span>{text.toLowerCase()}</span>
         </Wrapper>
     );
 };
+
+const defaultProps: IProps = {
+    text: 'SUCCEEDED',
+    fontFamily: FONT_SEMIBOLD,
+    fontSize: UITableConfig.RECORD_FONT_SIZE,
+    fontWeight: FONT_WEIGHT_600,
+    color: UITableConfig.RECORD_TEXT_COLOR,
+};
+
+UITableStatusFlagItem.defaultProps = defaultProps;
+
+export default UITableStatusFlagItem;

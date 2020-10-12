@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { UITableTextItem } from './UITableTextItem';
-import { UITableNumberItem } from './UITableNumberItem';
-import { UITableDateItem } from './UITableDateItem';
-import { UITableStatusFlagItem } from './UITableStatusFlagItem';
+import UITableTextItem from './UITableTextItem';
+import UITableNumberItem from './UITableNumberItem';
+import UITableDateItem from './UITableDateItem';
+import UITableStatusFlagItem from './UITableStatusFlagItem';
 import { TableField } from '../ui-table-config';
-import { UITableMethodItem } from './UITableMethodItem';
-import { UITableCurrencyItem } from './UITableCurrencyItem';
+import UITableMethodItem from './UITableMethodItem';
+import UITableCurrencyItem from './UITableCurrencyItem';
 
 interface IProps {
     data: any;

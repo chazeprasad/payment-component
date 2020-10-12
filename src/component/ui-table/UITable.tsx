@@ -1,10 +1,12 @@
-import React, { useState, FC } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import styled from 'styled-components';
 import { UITableHeaderCell } from './UITableHeaderCell';
-import { UITableCell } from './UITableCell';
-import { UITableRow } from './UITableRow';
-import { UITableHeaderRow } from './UITableHeaderRow';
 import { ITransaction } from '../../store/domain/ITransaction';
+import UITableHeaderRow from './UITableHeaderRow';
+import UITableRow from './UITableRow';
+import UITableCell from './UITableCell';
+import { ITableConfig, FONT_REGULAR, FONT_WEIGHT_600, UITableConfig } from './ui-table-config';
+import { ArrayUtil } from '../../util/array-util';
 
 const Wrapper = styled.div`
     display: flex;
@@ -24,22 +26,57 @@ const Table = styled.table`
 `;
 
 interface IProps {
-    config: any;
+    config: Array<ITableConfig>;
     data: Array<ITransaction>;
-    sort: any;
+    sortBy?: string;
+    sortOrder?: number;
+    headerHeight?: number;
+    rowHeight?: number;
+    headerFillColor?: string;
+    headerTextColor?: string;
+    headerFontFamily?: string;
+    headerFontSize?: number;
+    headerFontWeight?: number;
+    sortIconColor?: string;
+    sortIconSelectedColor?: string;
     onSortChange?: (string, number) => void;
 }
 
-const UITable: FC<IProps> = ({ config, data, onSortChange, sort }) => {
+const UITable: FC<IProps> = ({
+    config,
+    data,
+    onSortChange,
+    sortBy,
+    sortOrder,
+    rowHeight,
+    headerHeight,
+    headerFillColor,
+    headerTextColor,
+    headerFontFamily,
+    headerFontSize,
+    headerFontWeight,
+    sortIconColor,
+    sortIconSelectedColor,
+}) => {
     const [selectedRowIndex, setSelectedRowIndex] = useState(4);
+    const [records, setRecords] = useState<Array<ITransaction>>([]);
+    const [sort, setSort] = useState<any>({
+        property: '',
+        order: -1,
+    });
 
-    console.log('sort');
-    console.log(sort);
+    useEffect(() => {
+        setSort({
+            property: sortBy,
+            order: sortOrder,
+        });
+        if (data) setRecords([...data]);
+    }, [config, data, setSort, sortBy, sortOrder]);
 
     const renderHeader = () => {
         return (
             <thead>
-                <UITableHeaderRow>
+                <UITableHeaderRow height={headerHeight} fillColor={headerFillColor}>
                     {config &&
                         config.map((x, i) => (
                             <UITableHeaderCell
@@ -48,11 +85,26 @@ const UITable: FC<IProps> = ({ config, data, onSortChange, sort }) => {
                                 field={x.field}
                                 sortOrder={sort.order}
                                 onSortButtonPress={(p, o) => {
-                                    if (onSortChange) onSortChange(p, o);
+                                    setSort({
+                                        property: p,
+                                        order: o,
+                                    });
+                                    if (onSortChange) {
+                                        onSortChange(p, o);
+                                    } else {
+                                        const list = records ? records.sort(ArrayUtil.SortByProperty(p, o)) : [];
+                                        setRecords([...list]);
+                                    }
                                 }}
                                 first={i === 0}
                                 last={i === config.length - 1}
                                 text={x.headerName}
+                                color={headerTextColor}
+                                fontFamily={headerFontFamily}
+                                fontSize={headerFontSize}
+                                fontWeight={headerFontWeight}
+                                sortIconColor={sortIconColor}
+                                sortIconSelectedColor={sortIconSelectedColor}
                             />
                         ))}
                 </UITableHeaderRow>
@@ -63,8 +115,8 @@ const UITable: FC<IProps> = ({ config, data, onSortChange, sort }) => {
     const renderRecords = () => {
         return (
             <tbody>
-                {data &&
-                    data.map((row, i) => (
+                {records &&
+                    records.map((row, i) => (
                         <UITableRow
                             key={`record-${i}`}
                             active={selectedRowIndex === i}
@@ -79,8 +131,9 @@ const UITable: FC<IProps> = ({ config, data, onSortChange, sort }) => {
                                     last={ci === config.length - 1}
                                     adjacent={selectedRowIndex - 1 === i}
                                     active={selectedRowIndex === i}
-                                    text={data[i][x.field]}
+                                    text={records[i][x.field]}
                                     cellType={config[ci].type}
+                                    height={rowHeight}
                                 />
                             ))}
                         </UITableRow>
@@ -93,10 +146,28 @@ const UITable: FC<IProps> = ({ config, data, onSortChange, sort }) => {
         <Wrapper>
             <Table>
                 {renderHeader()}
-                {renderRecords()}
+                {records && renderRecords()}
             </Table>
         </Wrapper>
     );
 };
+
+const defaultProps: IProps = {
+    config: [],
+    data: [],
+    sortBy: '',
+    sortOrder: -1,
+    headerHeight: 48,
+    rowHeight: 38,
+    headerFillColor: '#fafafa',
+    headerTextColor: '#1A1A1A',
+    headerFontFamily: FONT_REGULAR,
+    headerFontSize: 14,
+    headerFontWeight: FONT_WEIGHT_600,
+    sortIconColor: UITableConfig.HEADER_SORT_ICON_NORMAL_COLOR,
+    sortIconSelectedColor: UITableConfig.HEADER_SORT_ICON_SELECTED_COLOR,
+};
+
+UITable.defaultProps = defaultProps;
 
 export default React.memo(UITable);

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
-import { UITableConfig } from './ui-table-config';
+import { UITableConfig, TableField } from './ui-table-config';
 import { UITableCellRenderer } from './cell-item/UITableCellRenderer';
 
 const Cell = styled.td<Partial<IProps>>`
@@ -18,7 +18,7 @@ const Cell = styled.td<Partial<IProps>>`
         justify-content: flex-start;
         align-items: center;
         border-bottom: solid 0.5px rgba(151, 151, 151, 0.33);
-        height: ${UITableConfig.RECORD_LINE_HEIGHT}px;
+        height: ${(props) => props.height}px;
 
         ${(props: any) =>
             css`
@@ -36,15 +36,30 @@ interface IProps {
     adjacent: boolean;
     cellType: string;
     text: string;
+    height?: number;
 }
 
-export const UITableCell: FC<IProps> = (props) => {
-    const { text, first, last, adjacent, active, cellType } = props;
+const UITableCell: FC<IProps> = (props) => {
+    const { text, cellType } = props;
     return (
-        <Cell first={first} last={last} adjacent={adjacent} active={active}>
+        <Cell {...props}>
             <div>
                 <UITableCellRenderer data={text} type={cellType} />
             </div>
         </Cell>
     );
 };
+
+const defaultProps: IProps = {
+    first: false,
+    last: false,
+    active: false,
+    adjacent: false,
+    cellType: TableField.STRING,
+    text: '',
+    height: UITableConfig.RECORD_LINE_HEIGHT,
+};
+
+UITableCell.defaultProps = defaultProps;
+
+export default UITableCell;

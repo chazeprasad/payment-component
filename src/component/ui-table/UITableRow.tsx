@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 
-const Row = styled.tr<IProps>`
+const Row = styled.tr<Partial<IProps>>`
     display: table-row;
     flex-direction: row;
-    height: 38px;
+    height: ${(props) => props.height}px;
     justify-content: flex-start;
     align-items: center;
     background-color: #ffffff;
@@ -27,18 +27,28 @@ const Row = styled.tr<IProps>`
 interface IProps {
     active: boolean;
     onPress?: () => void;
+    height?: number;
 }
 
-export const UITableRow: FC<IProps> = (props) => {
-    const { children, onPress, active } = props;
+const UITableRow: FC<IProps> = (props) => {
+    const { children, onPress } = props;
     return (
         <Row
-            active={active}
             onClick={() => {
-                onPress!();
+                if (onPress) onPress();
             }}
         >
             {children}
         </Row>
     );
 };
+
+const defaultProps: IProps = {
+    active: false,
+    height: 38,
+    onPress: () => {},
+};
+
+UITableRow.defaultProps = defaultProps;
+
+export default UITableRow;

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import SeparatorButton from './UIPaginationSeparatorButton';
 import UIPaginationPageButton from './UIPaginationPageButton';
 import UIPaginationNavButton from './UIPaginationNavButton';
 import { ReactComponent as RightChevron } from '../../media/image/chevron-right.svg';
 import { ReactComponent as LeftChevron } from '../../media/image/chevron-left.svg';
 import { FONT_REGULAR } from '../ui-table/ui-table-config';
+import UIPaginationSeparatorButton from './UIPaginationSeparatorButton';
 
 const Wrapper = styled.div`
     display: flex;
@@ -21,7 +21,7 @@ const Wrapper = styled.div`
     margin-left: 24px;
     position: relative;
 
-    @media (max-width: 425px) {
+    @media (max-width: 600px) {
         padding-top: 8px;
         margin-top: 8px;
         margin-right: 0px;
@@ -50,7 +50,7 @@ const PageNumberWrapper = styled.div`
     font-size: 16px;
     font-weight: 600;
 
-    @media (max-width: 425px) {
+    @media (max-width: 600px) {
         display: inline-flex;
         height: 36px;
         width: 16px;
@@ -62,13 +62,13 @@ const PageNumberWrapper = styled.div`
 
 const ChevronWrapper = styled.div`
     display: block;
-    @media (max-width: 425px) {
+    @media (max-width: 600px) {
         display: none;
     }
 `;
 const ChevronWrapperMobile = styled.div`
     display: none;
-    @media (max-width: 425px) {
+    @media (max-width: 600px) {
         display: block;
     }
 `;
@@ -81,9 +81,9 @@ const PaginationDetailsWrapper = styled.div`
     width: 100%;
     height: 50px;
     background-color: #ffffff;
-    padding-right: 24px;
+    padding-right: 0px;
 
-    @media (max-width: 425px) {
+    @media (max-width: 600px) {
         padding-right: 0px;
     }
 
@@ -109,13 +109,20 @@ const PaginationDetailsWrapper = styled.div`
 `;
 
 export interface IProps {
-    page: number;
-    totalPages: number;
+    currentPage: number;
+    pageLimit: number;
     numItems: number;
-    handlePagination: (page: number) => void;
+    onPaginationChange?: (page: number) => void;
 }
 
-export const UIPagination: React.FC<IProps> = ({ page, totalPages, handlePagination, numItems }) => {
+export const UIPagination: React.FC<IProps> = ({ currentPage, pageLimit, onPaginationChange, numItems }) => {
+    const [page, setPage] = useState(currentPage);
+    const [totalPages, setTotalPages] = useState(Math.ceil(numItems / pageLimit));
+
+    useEffect(() => {
+        setTotalPages(Math.ceil(numItems / pageLimit));
+    }, [pageLimit, numItems]);
+
     return (
         <Wrapper>
             <PaginationDetailsWrapper>
@@ -125,7 +132,13 @@ export const UIPagination: React.FC<IProps> = ({ page, totalPages, handlePaginat
             </PaginationDetailsWrapper>
 
             <ControlWrapper>
-                <UIPaginationNavButton disabled={page === 1} onPress={() => handlePagination(page - 1)}>
+                <UIPaginationNavButton
+                    disabled={page === 1}
+                    onPress={() => {
+                        setPage(page - 1);
+                        if (onPaginationChange) onPaginationChange(page - 1);
+                    }}
+                >
                     <ChevronWrapper>
                         <LeftChevron stroke={page === 1 ? '#d9d9d9' : '#000000'} />
                     </ChevronWrapper>
@@ -139,41 +152,100 @@ export const UIPagination: React.FC<IProps> = ({ page, totalPages, handlePaginat
                     </ChevronWrapperMobile>
                 </UIPaginationNavButton>
 
-                <UIPaginationPageButton onPress={() => handlePagination(1)} active={page === 1} page={1} />
+                <UIPaginationPageButton
+                    onPress={() => {
+                        setPage(1);
 
-                {page > 3 && <SeparatorButton />}
+                        if (onPaginationChange) onPaginationChange(1);
+                    }}
+                    active={page === 1}
+                    label={'1'}
+                />
+
+                {page > 3 && <UIPaginationSeparatorButton borderColor={'#ffffff'} />}
 
                 {page === totalPages && totalPages > 3 && (
-                    <UIPaginationPageButton onPress={() => handlePagination(page - 2)} active={false} page={page - 2} />
+                    <UIPaginationPageButton
+                        onPress={() => {
+                            setPage(page - 2);
+
+                            if (onPaginationChange) onPaginationChange(page - 2);
+                        }}
+                        active={false}
+                        label={(page - 2).toString()}
+                    />
                 )}
 
                 {page > 2 && (
-                    <UIPaginationPageButton onPress={() => handlePagination(page - 1)} active={false} page={page - 1} />
+                    <UIPaginationPageButton
+                        onPress={() => {
+                            setPage(page - 1);
+
+                            if (onPaginationChange) onPaginationChange(page - 1);
+                        }}
+                        active={false}
+                        label={(page - 1).toString()}
+                    />
                 )}
 
                 {page !== 1 && page !== totalPages && (
-                    <UIPaginationPageButton onPress={() => handlePagination(page)} active page={page} />
+                    <UIPaginationPageButton
+                        onPress={() => {
+                            setPage(page);
+
+                            if (onPaginationChange) onPaginationChange(page);
+                        }}
+                        active
+                        label={page.toString()}
+                    />
                 )}
 
                 {page < totalPages - 1 && (
-                    <UIPaginationPageButton onPress={() => handlePagination(page + 1)} active={false} page={page + 1} />
+                    <UIPaginationPageButton
+                        onPress={() => {
+                            setPage(page + 1);
+
+                            if (onPaginationChange) onPaginationChange(page + 1);
+                        }}
+                        active={false}
+                        label={(page + 1).toString()}
+                    />
                 )}
 
                 {page === 1 && totalPages > 3 && (
-                    <UIPaginationPageButton onPress={() => handlePagination(page + 2)} active={false} page={page + 2} />
+                    <UIPaginationPageButton
+                        onPress={() => {
+                            setPage(page + 2);
+
+                            if (onPaginationChange) onPaginationChange(page + 2);
+                        }}
+                        active={false}
+                        label={(page + 2).toString()}
+                    />
                 )}
 
-                {page < totalPages - 2 && <SeparatorButton />}
+                {page < totalPages - 2 && <UIPaginationSeparatorButton borderColor="#ffffff" />}
 
                 <UIPaginationPageButton
-                    onPress={() => handlePagination(totalPages)}
+                    onPress={() => {
+                        setPage(totalPages);
+
+                        if (onPaginationChange) onPaginationChange(totalPages);
+                    }}
                     active={page === totalPages}
-                    page={totalPages}
+                    label={totalPages.toString()}
                 />
 
                 <PageNumberWrapper>{page}</PageNumberWrapper>
 
-                <UIPaginationNavButton disabled={page === totalPages} onPress={() => handlePagination(page + 1)}>
+                <UIPaginationNavButton
+                    disabled={page === totalPages}
+                    onPress={() => {
+                        setPage(page + 1);
+
+                        if (onPaginationChange) onPaginationChange(page + 1);
+                    }}
+                >
                     <ChevronWrapper>
                         <RightChevron stroke={page === totalPages ? '#d9d9d9' : '#000000'} />
                     </ChevronWrapper>
@@ -190,5 +262,13 @@ export const UIPagination: React.FC<IProps> = ({ page, totalPages, handlePaginat
         </Wrapper>
     );
 };
+
+const defaultProps: IProps = {
+    currentPage: 1,
+    pageLimit: 10,
+    numItems: 60,
+};
+
+UIPagination.defaultProps = defaultProps;
 
 export default React.memo(UIPagination);

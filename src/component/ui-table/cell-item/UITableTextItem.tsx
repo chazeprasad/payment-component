@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { UITableConfig } from '../ui-table-config';
+import { UITableConfig, FONT_REGULAR } from '../ui-table-config';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<Partial<IProps>>`
     span {
-        font-family: ${UITableConfig.RECORD_FONT_FAMILY};
-        font-size: ${UITableConfig.RECORD_FONT_SIZE}px;
-        font-weight: ${UITableConfig.RECORD_FONT_WEIGHT};
-        color: #434343;
+        font-family: ${(props) => props.fontFamily};
+        font-size: ${(props) => props.fontSize}px;
+        font-weight: ${(props) => props.fontWeight};
+        color: ${(props) => props.color};
         margin: 0;
         padding: 0;
         font-stretch: normal;
@@ -19,15 +19,31 @@ const Wrapper = styled.div`
 
 interface IProps {
     text: string;
+    fontFamily?: string;
+    fontSize?: number;
+    fontWeight?: number;
+    color?: string;
 }
 
-export const UITableTextItem: FC<IProps> = (props) => {
-    const { text } = props;
+const UITableTextItem: FC<IProps> = (props) => {
+    const { text, fontFamily, fontSize, fontWeight, color } = props;
     return (
         <div>
-            <Wrapper>
+            <Wrapper fontFamily={fontFamily} fontSize={fontSize} fontWeight={fontWeight} color={color}>
                 <span>{text}</span>
             </Wrapper>
         </div>
     );
 };
+
+const defaultProps: IProps = {
+    text: '',
+    fontFamily: FONT_REGULAR,
+    fontSize: UITableConfig.RECORD_FONT_SIZE,
+    fontWeight: UITableConfig.RECORD_FONT_WEIGHT,
+    color: '#434343',
+};
+
+UITableTextItem.defaultProps = defaultProps;
+
+export default UITableTextItem;

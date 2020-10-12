@@ -3,7 +3,7 @@ import { PaymentService } from '../service/PaymentService';
 import { requestTransactionListSuccess, requestTransactionListError } from '../action/PaymentAction';
 import { ITransaction } from '../domain/ITransaction';
 
-const extractTransactionData = (data) => {
+export const extractTransactionData = (data) => {
     const transactionData: Array<ITransaction> = data.map((x) => {
         const transaction: ITransaction = {
             amount: x.amount,
