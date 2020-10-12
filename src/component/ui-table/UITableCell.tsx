@@ -4,6 +4,8 @@ import { UITableConfig, TableField } from './ui-table-config';
 import { UITableCellRenderer } from './cell-item/UITableCellRenderer';
 
 const Cell = styled.td<Partial<IProps>>`
+    padding: 0;
+    margin: 0;
     ${(props: any) =>
         css`
             border-top: solid 0.5px rgba(151, 151, 151, ${props.active ? 0.33 : 0});
