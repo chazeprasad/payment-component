@@ -2,9 +2,11 @@ import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 import { UITableConfig, FONT_WEIGHT_400, TableField } from './ui-table-config';
 
-const Cell = styled.td<Partial<IProps>>`
+const Cell = styled.th<Partial<IProps>>`
     border-bottom: solid 0.5px rgba(151, 151, 151, 0.33);
-
+    position: sticky;
+    top: 0;
+    background-color: ${(props) => props.fillColor};
     > div {
         display: flex;
         flex-direction: row;
@@ -90,6 +92,7 @@ interface IProps {
     height?: number;
     sortIconColor?: string;
     sortIconSelectedColor?: string;
+    fillColor?: string;
 }
 
 export const UITableHeaderCell: FC<IProps> = (props) => {
@@ -108,6 +111,7 @@ export const UITableHeaderCell: FC<IProps> = (props) => {
         fontFamily,
         sortIconColor,
         sortIconSelectedColor,
+        fillColor,
     } = props;
     return (
         <Cell
@@ -118,6 +122,7 @@ export const UITableHeaderCell: FC<IProps> = (props) => {
             fontWeight={fontWeight}
             fontSize={fontSize}
             fontFamily={fontFamily}
+            fillColor={fillColor}
         >
             <div>
                 <div
@@ -169,6 +174,7 @@ const defaultProps: IProps = {
     color: UITableConfig.HEADER_TEXT_COLOR,
     sortIconColor: '#BFBFBF',
     sortIconSelectedColor: '#1791ff',
+    fillColor: '#fafafa',
 };
 
 UITableHeaderCell.defaultProps = defaultProps;
