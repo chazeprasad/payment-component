@@ -17,6 +17,7 @@ const Wrapper = styled.div`
     padding: 24px;
     box-sizing: border-box;
     background-color: ${ThemeColor.GRAY_NURSE};
+    overflow: auto;
 
     @media (max-width: 600px) {
         padding: 8px;

@@ -8,6 +8,19 @@ const Row = styled.tr<IProps>`
     justify-content: flex-start;
     align-items: center;
     background-color: ${(props) => props.fillColor};
+
+    > div {
+        display: flex;
+        flex-direction: row;
+        height: ${(props) => props.height}px;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: ${(props) => props.fillColor};
+        position: sticky;
+        left: 0;
+        top: 51;
+        right: 0;
+    }
 `;
 
 interface IProps {

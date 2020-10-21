@@ -23,6 +23,7 @@ const Table = styled.table`
     width: 100%;
     table-layout: auto;
     padding: 0px;
+    overflow: auto;
 `;
 
 interface IProps {
@@ -81,6 +82,7 @@ const UITable: FC<IProps> = ({
                         config.map((x, i) => (
                             <UITableHeaderCell
                                 key={`head-${i}`}
+                                fillColor={headerFillColor}
                                 sortActive={sort.property === x.field}
                                 field={x.field}
                                 sortOrder={sort.order}
