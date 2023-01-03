@@ -2,9 +2,6 @@
 
 Payment Data Table Component.
 
-### Demo
-[https://payment-component.herokuapp.com](https://payment-component.herokuapp.com)
-
 ## Technologies
 It features the following technologies:
 
